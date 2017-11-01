@@ -15,6 +15,8 @@ function Tiger(name) {
         healthy: 'I\'m seek',
         training: 'I want studying'
     };
+    var randomMessages = ['Test', 'Brrrr, It\'s so cold'];
+
     this.state = function () {
         for(var i = 0; i < params.length; i++) {
             switch (this[params[i]]) {
@@ -38,7 +40,7 @@ function Tiger(name) {
         }
         if (this.healthy <= 0) {
             console.log('RIP');
-            delete this;
+            setTimeout(function(){ location.reload(); }, 3000);
         }
     }
 }
@@ -58,12 +60,19 @@ Tiger.prototype.sleep = function () {
 
 Tiger.prototype.eat = function () {
     if (this.hunger > 8) {
-        console.log('I\'m non hungry');
+        console.log('I\'m not hungry');
     } else {
-        console.log('Yummy!');
-        this.hunger++;
-        this.thirst--;
-        this.sleeping--;
+        var r = Math.random();
+        if (r > 0.2) {
+            console.log('Yummy!');
+            this.hunger++;
+            this.thirst--;
+            this.sleeping--;
+        } else {
+            console.log('It\'s a poison');
+            setTimeout(function(){ location.reload(); }, 3000)
+        }
+        
     }
     this.state();
 }
@@ -114,10 +123,9 @@ Tiger.prototype.help = function () {
         'I can sleep with the command - "sleep", \n' +
         'I can drink with the command - "drink", \n' +
         'I can eat with the command - "eat", \n' +
-        'I can play with command - "play", \n' +
+        'I can play with the command - "play", \n' +
         'I need to be stronger with the command - "health"'
     );
-
 }
 
 var tiger = new Tiger('Tim');
